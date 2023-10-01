@@ -1,13 +1,8 @@
-const calc_operators = ["×", "÷", "+", "-", "(", ")"];
-
 function Calculator() {
     let numbers = [];
     let operators = [];
-    let examples = [];
 
-    function findIdOperator(arr, elem) {
-        return arr.includes(elem);
-    }
+    const calc_operators = ["×", "÷", "+", "-", "(", ")"];
 
     function constructExample(example) {
         let _number = "";
@@ -148,7 +143,6 @@ const result = document.querySelector('.result');
 const prev = document.querySelector('.example');
 const example = Calculator();
 
-
 let brack = false;
 let buffer = "";
 
@@ -207,13 +201,9 @@ function handleSymbol(val) {
         case "×":
         case "+":
         case "-":
-            // if (String(buffer[buffer.length - 1]) in calc_operators) {
-            //     if (String(buffer[buffer.length - 1]) == ")") {
-            //     }
-            // }
             if (isNaN(buffer[buffer.length-1])) {
                 if (buffer[buffer.length-1] != ")") {
-                    return;
+                    buffer = buffer.slice(0, -1);
                 }
             }
             buffer += val;
@@ -245,6 +235,39 @@ function updateHistory() {
     }
 }
 
+function keyDown(key) {
+    console.log(key);
+    if (!isNaN(key)){
+        handleNumber(key);
+    }
+
+    switch (key) {
+        case "*":
+        case "×":
+            handleSymbol("×");
+            break;
+        case "/":
+        case "÷":
+            handleSymbol("÷");
+            break;
+        case "=":
+        case "Enter":
+            handleSymbol("=");
+            break;
+        case "Backspace":
+            handleSymbol("←");
+            break;
+        case "+":
+        case "-":
+        case "(":
+        case ")":
+        case "C":
+            handleSymbol(key);
+            break;
+    }
+    result.innerText = buffer;
+}
+
 function init() {
     document.querySelector('.buttons').
     addEventListener('click', function(event) {
@@ -261,8 +284,11 @@ function init() {
         document.querySelector('.buttons').classList.toggle('buttons_active');
         document.querySelector('.history-list').classList.toggle('history_active');
     });
-
     updateHistory();
+
+    document.addEventListener("keydown", function(event) {
+        keyDown(event.key);
+    })
 }
 
 init();
