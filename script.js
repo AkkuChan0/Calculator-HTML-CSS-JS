@@ -257,10 +257,12 @@ function keyDown(key) {
         case "Backspace":
             handleSymbol("←");
             break;
-        case "+":
-        case "-":
         case "(":
         case ")":
+            handleSymbol("( )");
+            break;
+        case "+":
+        case "-":
         case "C":
             handleSymbol(key);
             break;
