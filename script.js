@@ -1,9 +1,9 @@
+const calc_operators = ["×", "÷", "+", "-", "(", ")"];
+
 function Calculator() {
     let numbers = [];
     let operators = [];
     let examples = [];
-
-    const calc_operators = ["×", "÷", "+", "-", "(", ")"];
 
     function findIdOperator(arr, elem) {
         return arr.includes(elem);
@@ -207,8 +207,12 @@ function handleSymbol(val) {
         case "×":
         case "+":
         case "-":
-            if (isNaN(buffer[buffer.length - 1])) {
-                if (!buffer[buffer.length - 1] == ")") {
+            // if (String(buffer[buffer.length - 1]) in calc_operators) {
+            //     if (String(buffer[buffer.length - 1]) == ")") {
+            //     }
+            // }
+            if (isNaN(buffer[buffer.length-1])) {
+                if (buffer[buffer.length-1] != ")") {
                     return;
                 }
             }
